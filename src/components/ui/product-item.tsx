@@ -2,6 +2,7 @@ import { ProductWithTotalPrice } from "@/helpers/product";
 import Image from "next/image";
 import { Badge } from "./badge";
 import { ArrowDownIcon } from "lucide-react";
+import { formatToMoney } from "@/helpers/formatToMoney";
 
 interface ProductItemProps {
   product: ProductWithTotalPrice;
@@ -33,20 +34,20 @@ export function ProductItem({ product }: ProductItemProps) {
           {product.name}
         </p>
 
-        <div className="item-center flex gap-2">
+        <div className="flex items-baseline gap-2">
           {product.discountPercentage > 0 ? (
             <>
               <p className="font-semibold">
-                R$ {product.totalPrice.toFixed(2)}
+                {formatToMoney(product.totalPrice)}
               </p>
 
               <p className="text-xs line-through opacity-75">
-                R$ {Number(product.basePrice).toFixed(2)}
+                {formatToMoney(Number(product.basePrice))}
               </p>
             </>
           ) : (
             <p className="text-sm font-semibold">
-              R$ {product.basePrice.toFixed(2)}
+              {formatToMoney(Number(product.basePrice))}
             </p>
           )}
         </div>
