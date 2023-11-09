@@ -10,7 +10,7 @@ interface ProductItemProps {
 
 export function ProductItem({ product }: ProductItemProps) {
   return (
-    <div className="flex min-w-[200px] flex-col gap-4">
+    <div className="flexflex-col gap-4">
       <div className="relative flex h-[170px] w-full items-center justify-center rounded-lg bg-accent">
         <Image
           src={product.imageUrls[0]}
