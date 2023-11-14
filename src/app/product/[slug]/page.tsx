@@ -3,6 +3,7 @@ import { ProductImage } from "./components/product-image";
 import { ProductInfo } from "./components/product-info";
 import { computeProductTotalPrice } from "@/helpers/product";
 import { ProductList } from "@/components/ui/product-list";
+import { SectionTitle } from "@/components/ui/section-title";
 
 interface ProductDetailsPageProps {
   params: {
@@ -39,8 +40,10 @@ export default async function ProductDetailsPage({
       <ProductImage imageUrls={product.imageUrls} name={product.name} />
       <ProductInfo product={computeProductTotalPrice(product)} />
 
-      <h2 className="px-5 font-semibold uppercase">Produtos relacionados</h2>
-      <ProductList products={product.category.products} />
+      <div>
+        <SectionTitle>Produtos relacionados</SectionTitle>
+        <ProductList products={product.category.products} />
+      </div>
     </div>
   );
 }
