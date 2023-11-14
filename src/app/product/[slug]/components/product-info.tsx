@@ -4,20 +4,17 @@ import { Button } from "@/components/ui/button";
 import { DiscountBadge } from "@/components/ui/discount-badge";
 import { formatToMoney } from "@/helpers/formatToMoney";
 import { ProductWithTotalPrice } from "@/helpers/product";
+import { useCart } from "@/hooks/useCart";
 import { ArrowLeftIcon, ArrowRightIcon, TruckIcon } from "lucide-react";
 import { useState } from "react";
 
 interface ProductInfoProps {
-  product: Pick<
-    ProductWithTotalPrice,
-    "basePrice" | "description" | "discountPercentage" | "totalPrice" | "name"
-  >;
+  product: ProductWithTotalPrice;
 }
 
-export function ProductInfo({
-  product: { basePrice, description, discountPercentage, totalPrice, name },
-}: ProductInfoProps) {
+export function ProductInfo({ product }: ProductInfoProps) {
   const [quantity, setQuantity] = useState(1);
+  const { addProductToCart } = useCart();
 
   function handleDecreaseQuantityClick() {
     setQuantity((prevState) => (prevState === 1 ? prevState : prevState - 1));
@@ -26,20 +23,29 @@ export function ProductInfo({
     setQuantity((prevState) => prevState + 1);
   }
 
+  function handleAddProductToCartClick() {
+    addProductToCart({
+      ...product,
+      quantity,
+    });
+  }
+
   return (
     <div className="flex flex-col px-5">
-      <h2 className="text-lg">{name}</h2>
+      <h2 className="text-lg">{product.name}</h2>
 
       <div className="flex items-center gap-2">
-        <h1 className="text-xl font-bold">R$ {formatToMoney(totalPrice)}</h1>
-        {discountPercentage > 0 && (
-          <DiscountBadge>{discountPercentage}</DiscountBadge>
+        <h1 className="text-xl font-bold">
+          R$ {formatToMoney(product.totalPrice)}
+        </h1>
+        {product.discountPercentage > 0 && (
+          <DiscountBadge>{product.discountPercentage}</DiscountBadge>
         )}
       </div>
 
-      {discountPercentage > 0 && (
+      {product.discountPercentage > 0 && (
         <p className="text-xs line-through opacity-75">
-          {formatToMoney(Number(basePrice))}
+          {formatToMoney(Number(product.basePrice))}
         </p>
       )}
 
@@ -65,11 +71,14 @@ export function ProductInfo({
       <div className="mt-8 flex flex-col gap-3">
         <h3 className="text-base font-bold">Descrição</h3>
         <p className="text-justify text-sm font-light opacity-60">
-          {description}
+          {product.description}
         </p>
       </div>
 
-      <Button className="mt-8 font-bold uppercase">
+      <Button
+        className="mt-8 font-bold uppercase"
+        onClick={handleAddProductToCartClick}
+      >
         Adicionar ao carrinho
       </Button>
 

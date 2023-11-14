@@ -16,12 +16,14 @@ import {
   SheetClose,
   SheetContent,
   SheetHeader,
+  SheetTitle,
   SheetTrigger,
 } from "./sheet";
 import { signIn, signOut, useSession } from "next-auth/react";
 import { Avatar, AvatarFallback, AvatarImage } from "./avatar";
 import { Separator } from "./separator";
 import Link from "next/link";
+import { Cart } from "./cart";
 
 export function Header() {
   const { status, data } = useSession();
@@ -125,9 +127,16 @@ export function Header() {
         </h1>
       </Link>
 
-      <Button size="icon" variant="outline">
-        <ShoppingCartIcon />
-      </Button>
+      <Sheet>
+        <SheetTrigger asChild>
+          <Button size="icon" variant="outline">
+            <ShoppingCartIcon />
+          </Button>
+        </SheetTrigger>
+        <SheetContent>
+          <Cart />
+        </SheetContent>
+      </Sheet>
     </Card>
   );
 }
