@@ -4,12 +4,14 @@ import { useCart } from "@/hooks/useCart";
 import { CartItem } from "./cart-item";
 import { Separator } from "./separator";
 import { formatToMoney } from "@/helpers/formatToMoney";
+import { ScrollArea, ScrollBar } from "./scroll-area";
+import { Button } from "./button";
 
 export function Cart() {
   const { products, subTotal, totalDiscount, total } = useCart();
 
   return (
-    <div className="flex flex-col gap-8">
+    <div className="flex h-full flex-col gap-8">
       <Badge
         className="w-fit gap-1 border-2 border-primary px-3 py-[0.375rem] text-base uppercase"
         variant="outline"
@@ -18,16 +20,21 @@ export function Cart() {
         Carrinho
       </Badge>
 
-      <div className="flex flex-col gap-5">
-        {products.length > 0 ? (
-          products.map((product) => (
-            <CartItem product={product} key={product.id} />
-          ))
-        ) : (
-          <p className="text-center font-semibold">
-            Carrinho vazio, vamos fazer compras?
-          </p>
-        )}
+      <div className="flex flex-1 flex-col gap-5 overflow-hidden">
+        <ScrollArea className="flex-1">
+          <div className="flex flex-col gap-8">
+            {products.length > 0 ? (
+              products.map((product) => (
+                <CartItem product={product} key={product.id} />
+              ))
+            ) : (
+              <p className="text-center font-semibold">
+                Carrinho vazio, vamos fazer compras?
+              </p>
+            )}
+            <ScrollBar orientation="vertical" />
+          </div>
+        </ScrollArea>
       </div>
 
       <div className="flex flex-col gap-3">
@@ -59,6 +66,8 @@ export function Cart() {
           <p>{formatToMoney(total)}</p>
         </div>
       </div>
+
+      <Button className="mt-7 font-bold uppercase">Finalizar compra</Button>
     </div>
   );
 }
