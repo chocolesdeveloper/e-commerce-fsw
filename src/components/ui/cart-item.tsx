@@ -10,10 +10,14 @@ interface CartItemProps {
 }
 
 export function CartItem({ product }: CartItemProps) {
-  const { decreaseProductQuantity } = useCart();
+  const { decreaseProductQuantity, increaseProductQuantity } = useCart();
 
   function handleDrecreaseProductQuantity(productId: string) {
     decreaseProductQuantity(productId);
+  }
+
+  function handleInreaseProductQuantity(productId: string) {
+    increaseProductQuantity(productId);
   }
 
   return (
@@ -53,7 +57,12 @@ export function CartItem({ product }: CartItemProps) {
               <ArrowLeftIcon size={16} />
             </Button>
             <span className="text-xs">{product.quantity}</span>
-            <Button className="h-8 w-8" size="icon" variant="outline">
+            <Button
+              className="h-8 w-8"
+              size="icon"
+              variant="outline"
+              onClick={() => handleInreaseProductQuantity(product.id)}
+            >
               <ArrowRightIcon size={16} />
             </Button>
           </div>
