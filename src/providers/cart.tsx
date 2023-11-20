@@ -20,15 +20,13 @@ interface ICartContext {
 export const CartContext = createContext({} as ICartContext);
 
 export function CartProvider({ children }: { children: ReactNode }) {
-  const [products, setProducts] = useState<CartProducts[]>(() => {
-    const storageCart = localStorage.getItem("@fsw-store/cart-products");
+  const [products, setProducts] = useState<CartProducts[]>([]);
 
-    if (storageCart) {
-      return JSON.parse(storageCart);
-    }
-
-    return [];
-  });
+  useEffect(() => {
+    setProducts(
+      JSON.parse(localStorage.getItem("@fsw-store/cart-products") || "[]"),
+    );
+  }, []);
 
   useEffect(() => {
     localStorage.setItem("@fsw-store/cart-products", JSON.stringify(products));
