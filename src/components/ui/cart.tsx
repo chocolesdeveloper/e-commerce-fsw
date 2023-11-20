@@ -8,11 +8,19 @@ import { ScrollArea, ScrollBar } from "./scroll-area";
 import { Button } from "./button";
 import createCheckout from "@/actions/checkout";
 import { loadStripe } from "@stripe/stripe-js";
+import { useSession } from "next-auth/react";
+import { toast } from "react-toastify";
 
 export function Cart() {
   const { products, subTotal, totalDiscount, total } = useCart();
 
+  const { status } = useSession();
+
   async function handleFinishedPurchaseClick() {
+    if (status === "unauthenticated") {
+      return toast.error("Faça login para continuar!");
+    }
+
     const checkout = await createCheckout(products);
 
     const stripe = await loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLIC_KEY);
@@ -49,42 +57,46 @@ export function Cart() {
         </ScrollArea>
       </div>
 
-      <div className="flex flex-col gap-3">
-        <Separator />
+      {products.length > 0 && (
+        <div className="flex flex-col gap-3">
+          <Separator />
 
-        <div className="flex items-center justify-between text-xs">
-          <p>SubTotal</p>
-          <p>{formatToMoney(subTotal)}</p>
+          <div className="flex items-center justify-between text-xs">
+            <p>SubTotal</p>
+            <p>{formatToMoney(subTotal)}</p>
+          </div>
+
+          <Separator />
+
+          <div className="flex items-center justify-between text-xs">
+            <p>Entrega</p>
+            <p>GRÁTIS</p>
+          </div>
+
+          <Separator />
+
+          <div className="flex items-center justify-between text-xs">
+            <p>Descontos</p>
+            <p>{formatToMoney(totalDiscount)}</p>
+          </div>
+
+          <Separator />
+
+          <div className="flex items-center justify-between text-sm font-bold">
+            <p>Total</p>
+            <p>{formatToMoney(total)}</p>
+          </div>
         </div>
+      )}
 
-        <Separator />
-
-        <div className="flex items-center justify-between text-xs">
-          <p>Entrega</p>
-          <p>GRÁTIS</p>
-        </div>
-
-        <Separator />
-
-        <div className="flex items-center justify-between text-xs">
-          <p>Descontos</p>
-          <p>{formatToMoney(totalDiscount)}</p>
-        </div>
-
-        <Separator />
-
-        <div className="flex items-center justify-between text-sm font-bold">
-          <p>Total</p>
-          <p>{formatToMoney(total)}</p>
-        </div>
-      </div>
-
-      <Button
-        className="mt-7 font-bold uppercase"
-        onClick={handleFinishedPurchaseClick}
-      >
-        Finalizar compra
-      </Button>
+      {products.length > 0 && (
+        <Button
+          className="mt-7 font-bold uppercase"
+          onClick={handleFinishedPurchaseClick}
+        >
+          Finalizar compra
+        </Button>
+      )}
     </div>
   );
 }

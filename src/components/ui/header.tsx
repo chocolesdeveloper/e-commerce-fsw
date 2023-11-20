@@ -16,7 +16,6 @@ import {
   SheetClose,
   SheetContent,
   SheetHeader,
-  SheetTitle,
   SheetTrigger,
 } from "./sheet";
 import { signIn, signOut, useSession } from "next-auth/react";

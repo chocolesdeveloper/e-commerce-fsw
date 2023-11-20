@@ -2,6 +2,7 @@ import { Badge } from "@/components/ui/badge";
 import { prismaClient } from "@/lib/prisma";
 import { ShapesIcon } from "lucide-react";
 import { CategoryItem } from "./components/category-item";
+import { toast } from "react-toastify";
 
 export default async function CatalogPage() {
   const categories = await prismaClient.category.findMany({});

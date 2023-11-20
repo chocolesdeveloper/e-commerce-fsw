@@ -5,6 +5,8 @@ import { Header } from "@/components/ui/header";
 import { AuthProvider } from "@/providers/auth";
 import { Footer } from "@/components/ui/footer";
 import { CartProvider } from "@/providers/cart";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/ReactToastify.css";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -27,6 +29,13 @@ export default function RootLayout({
               <Header />
               <div className="flex-1">{children}</div>
               <Footer />
+
+              <ToastContainer
+                autoClose={2000}
+                theme="dark"
+                position="bottom-left"
+                closeOnClick
+              />
             </CartProvider>
           </AuthProvider>
         </div>
