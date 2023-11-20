@@ -6,7 +6,6 @@ import { ReactNode, createContext, useEffect, useMemo, useState } from "react";
 export interface CartProducts extends ProductWithTotalPrice {
   quantity: number;
 }
-
 interface ICartContext {
   products: CartProducts[];
   subTotal: number;
