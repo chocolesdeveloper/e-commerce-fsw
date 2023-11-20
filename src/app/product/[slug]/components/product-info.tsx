@@ -7,6 +7,7 @@ import { ProductWithTotalPrice } from "@/helpers/product";
 import { useCart } from "@/hooks/useCart";
 import { ArrowLeftIcon, ArrowRightIcon, TruckIcon } from "lucide-react";
 import { useState } from "react";
+import { toast } from "react-toastify";
 
 interface ProductInfoProps {
   product: ProductWithTotalPrice;
@@ -28,6 +29,8 @@ export function ProductInfo({ product }: ProductInfoProps) {
       ...product,
       quantity,
     });
+
+    toast.success("Adicionado ao carrinho ❤️");
   }
 
   return (

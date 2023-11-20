@@ -4,6 +4,7 @@ import Image from "next/image";
 import { Button } from "./button";
 import { ArrowLeftIcon, ArrowRightIcon, TrashIcon } from "lucide-react";
 import { useCart } from "@/hooks/useCart";
+import { toast } from "react-toastify";
 
 interface CartItemProps {
   product: CartProducts;
@@ -18,6 +19,7 @@ export function CartItem({ product }: CartItemProps) {
 
   function handleDrecreaseProductQuantity(productId: string) {
     decreaseProductQuantity(productId);
+    toast.success("Item removido 😭");
   }
 
   function handleInreaseProductQuantity(productId: string) {
@@ -26,6 +28,7 @@ export function CartItem({ product }: CartItemProps) {
 
   function handleRemoveItemCart(productId: string) {
     removeProductFromCart(productId);
+    toast.success("Item removido 😭");
   }
 
   return (

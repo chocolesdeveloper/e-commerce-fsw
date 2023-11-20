@@ -31,7 +31,7 @@ export default function RootLayout({
               <Footer />
 
               <ToastContainer
-                autoClose={2000}
+                autoClose={1000}
                 theme="dark"
                 position="bottom-left"
                 closeOnClick
