@@ -10,16 +10,19 @@ import createCheckout from "@/actions/checkout";
 import { loadStripe } from "@stripe/stripe-js";
 import { useSession } from "next-auth/react";
 import { toast } from "react-toastify";
+import { createOrder } from "@/actions/order";
 
 export function Cart() {
   const { products, subTotal, totalDiscount, total } = useCart();
 
-  const { status } = useSession();
+  const { status, data } = useSession();
 
   async function handleFinishedPurchaseClick() {
     if (status === "unauthenticated") {
       return toast.error("Faça login para continuar!");
     }
+
+    await createOrder(products, data?.user?.id!);
 
     const checkout = await createCheckout(products);
 
