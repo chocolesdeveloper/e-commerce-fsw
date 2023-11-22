@@ -1,3 +1,4 @@
+import { prismaClient } from "@/lib/prisma";
 import { NextResponse } from "next/server";
 import Stripe from "stripe";
 
@@ -29,6 +30,19 @@ export async function POST(request: Request) {
     );
 
     const lineItems = sessionWithLineItens.line_items;
+
+    if (!event.data.object.metadata) {
+      return null;
+    }
+
+    await prismaClient.order.update({
+      where: {
+        id: event.data.object.metadata.orderId,
+      },
+      data: {
+        status: "PAYMENT_CONFIRMED",
+      },
+    });
   }
 
   return NextResponse.json({ received: true });
