@@ -20,7 +20,7 @@ export default async function DealsPage() {
         variant="outline"
       >
         <PercentIcon size={16} />
-        Carrinho
+        Ofertas
       </Badge>
 
       <div className="grid grid-cols-2 gap-8">
