@@ -25,6 +25,8 @@ export default async function OrdersPage() {
     },
   });
 
+  orders.reverse();
+
   return (
     <div className="p-5q flex flex-col gap-8">
       <Badge
