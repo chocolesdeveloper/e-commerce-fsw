@@ -22,7 +22,9 @@ export function Cart() {
       return toast.error("Faça login para continuar!");
     }
 
-    const order = await createOrder(products, data?.user?.id!);
+    if (!data?.user.id) return null;
+
+    const order = await createOrder(products, data?.user?.id);
 
     const checkout = await createCheckout(products, order.id);
 

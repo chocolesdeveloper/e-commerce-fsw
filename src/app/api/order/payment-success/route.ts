@@ -22,6 +22,8 @@ export async function POST(request: Request) {
   );
 
   if (event.type === "checkout.session.completed") {
+    // const session = event.data.object as any;
+
     const sessionWithLineItens = await stripe.checkout.sessions.retrieve(
       event.data.object.id,
       {
@@ -32,7 +34,7 @@ export async function POST(request: Request) {
     const lineItems = sessionWithLineItens.line_items;
 
     if (!event.data.object.metadata) {
-      return null;
+      return NextResponse.error();
     }
 
     await prismaClient.order.update({
