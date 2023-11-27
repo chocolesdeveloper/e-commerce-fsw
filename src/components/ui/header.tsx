@@ -193,8 +193,8 @@ export function Header() {
 
         {status === "unauthenticated" && (
           <Button
-            variant="outline"
-            className="w-full justify-start gap-2"
+            variant="ghost"
+            className="hidden w-full justify-start gap-2 lg:block"
             onClick={handleLoginClick}
           >
             <LogInIcon size={18} />
