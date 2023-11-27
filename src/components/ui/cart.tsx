@@ -1,4 +1,4 @@
-import { ShoppingCartIcon } from "lucide-react";
+import { Loader, ShoppingCartIcon } from "lucide-react";
 import { Badge } from "./badge";
 import { useCart } from "@/hooks/useCart";
 import { CartItem } from "./cart-item";
@@ -11,8 +11,11 @@ import { loadStripe } from "@stripe/stripe-js";
 import { useSession } from "next-auth/react";
 import { toast } from "react-toastify";
 import { createOrder } from "@/actions/order";
+import { useState } from "react";
 
 export function Cart() {
+  const [isLoading, setIsLoading] = useState(false);
+
   const { products, subTotal, totalDiscount, total } = useCart();
 
   const { status, data } = useSession();
@@ -24,15 +27,26 @@ export function Cart() {
 
     if (!data?.user.id) return null;
 
-    const order = await createOrder(products, data?.user?.id);
+    try {
+      setIsLoading(!isLoading);
 
-    const checkout = await createCheckout(products, order.id);
+      const order = await createOrder(products, data?.user?.id);
 
-    const stripe = await loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLIC_KEY);
+      const checkout = await createCheckout(products, order.id);
 
-    stripe?.redirectToCheckout({
-      sessionId: checkout.id,
-    });
+      const stripe = await loadStripe(
+        process.env.NEXT_PUBLIC_STRIPE_PUBLIC_KEY,
+      );
+
+      stripe?.redirectToCheckout({
+        sessionId: checkout.id,
+      });
+    } catch (error) {
+      console.log("ErrorCart:", error);
+      setIsLoading(!isLoading);
+    } finally {
+      setIsLoading(!isLoading);
+    }
   }
 
   return (
@@ -98,8 +112,13 @@ export function Cart() {
         <Button
           className="mt-7 font-bold uppercase"
           onClick={handleFinishedPurchaseClick}
+          disabled={isLoading}
         >
-          Finalizar compra
+          {isLoading ? (
+            <Loader className="animate-spin" />
+          ) : (
+            <p>Finalizar compra</p>
+          )}
         </Button>
       )}
     </div>
