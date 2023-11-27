@@ -25,7 +25,7 @@ export default async function CategoryProducts({ params }: any) {
         {category?.name}
       </Badge>
 
-      <div className="grid grid-cols-2 gap-8">
+      <div className="grid grid-cols-2 gap-8 lg:grid-cols-5">
         {category?.products.map((product) => (
           <ProductItem
             product={computeProductTotalPrice(product)}

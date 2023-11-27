@@ -99,8 +99,7 @@ async function main() {
       data: {
         name: "Teclados",
         slug: "keyboards",
-        imageUrl:
-          "https://utfs.io/f/bebd6fe5-ca55-48de-ae94-6d7ddc85ff0a-pv4uj8.png",
+        imageUrl: "https://i.imgur.com/g4aMsUt.png",
       },
     });
 

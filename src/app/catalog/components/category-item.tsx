@@ -10,14 +10,14 @@ export function CategoryItem({ category }: CategoryItemProps) {
   return (
     <Link href={`/category/${category.slug}`}>
       <div className="flex flex-col">
-        <div className="bg-category-item-gradient flex h-[150px] w-full items-center justify-center rounded-tl-lg rounded-tr-lg">
+        <div className="flex h-[150px] w-full items-center justify-center rounded-tl-lg rounded-tr-lg bg-category-item-gradient">
           <Image
             src={category.imageUrl}
             alt={category.name}
             width={0}
             height={0}
             sizes="100vw"
-            className="h-auto max-h-[80%] w-auto max-w-[80%] object-contain"
+            className="h-auto max-h-[80%] w-auto min-w-[80%] max-w-[80%] object-contain"
           />
         </div>
         <div className="rounded-bl-lg rounded-br-lg bg-accent py-3">

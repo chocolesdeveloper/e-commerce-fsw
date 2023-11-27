@@ -37,17 +37,19 @@ export function OrderProductItem({ orderProduct }: OrderProductItemProps) {
 
         <p className="text-xs">{orderProduct.product.name}</p>
 
-        <div className="flex items-center justify-between gap-1">
+        <div className="flex items-center justify-between gap-1 lg:flex-row-reverse">
           <div className="flex items-center justify-between gap-1">
-            <p className="text-sm font-bold">
-              {formatToMoney(productWithTotalPrice.totalPrice)}
-            </p>
-
-            {productWithTotalPrice.discountPercentage > 0 && (
-              <p className="text-xs line-through opacity-60">
-                {formatToMoney(Number(productWithTotalPrice.basePrice))}
+            <div className="flex items-center gap-2 lg:flex-col lg:items-end">
+              <p className="text-sm font-bold lg:text-xl">
+                {formatToMoney(productWithTotalPrice.totalPrice)}
               </p>
-            )}
+
+              {productWithTotalPrice.discountPercentage > 0 && (
+                <p className="text-xs line-through opacity-60">
+                  {formatToMoney(Number(productWithTotalPrice.basePrice))}
+                </p>
+              )}
+            </div>
           </div>
 
           <p className="opacity-60">Quantidade: {orderProduct.quantity}</p>

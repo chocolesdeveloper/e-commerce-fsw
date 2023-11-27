@@ -30,25 +30,36 @@ export default async function Home() {
   });
 
   return (
-    <div className="flex flex-col gap-8 pb-8">
+    <div className="container flex flex-col gap-8 pb-8">
       <PromoBanner
         src="/banner-home-01.png"
         alt="Até 55% de desconto esse mês"
+        className="px-5 md:hidden"
+      />
+      <PromoBanner
+        src="/banner-home-01-desktop.png"
+        alt="Até 55% de desconto esse mês"
+        className="hidden px-5 md:block"
       />
 
-      <div className="px-5">
-        <Categories />
-      </div>
+      <Categories />
 
       <div>
         <SectionTitle>ofertas</SectionTitle>
         <ProductList products={deals} />
       </div>
 
-      <PromoBanner
-        src="/banner-home-02.png"
-        alt="Até 55% de desconto em mouses!"
-      />
+      <div className="grid grid-cols-1 gap-2 px-2 md:grid-cols-2">
+        <PromoBanner
+          src="/banner-home-02.png"
+          alt="Até 55% de desconto em mouses!"
+        />
+        <PromoBanner
+          src="/banner-home-03.png"
+          alt="Até 55% de desconto em mouses!"
+          className="hidden w-full md:block"
+        />
+      </div>
 
       <div>
         <SectionTitle>teclados</SectionTitle>
@@ -58,6 +69,12 @@ export default async function Home() {
       <PromoBanner
         src="/banner-home-03.png"
         alt="Até 55% de desconto em mouses!"
+        className="block px-5 md:hidden"
+      />
+      <PromoBanner
+        src="/banner-fretegratis.png"
+        alt="Até 55% de desconto em mouses!"
+        className="hidden h-60 object-contain md:block"
       />
 
       <div>

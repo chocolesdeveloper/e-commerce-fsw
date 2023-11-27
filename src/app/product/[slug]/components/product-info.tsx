@@ -34,8 +34,8 @@ export function ProductInfo({ product }: ProductInfoProps) {
   }
 
   return (
-    <div className="flex flex-col px-5">
-      <h2 className="text-lg">{product.name}</h2>
+    <div className="flex flex-col justify-between px-5 lg:bg-accent lg:p-10">
+      <h2 className="text-lg lg:text-2xl">{product.name}</h2>
 
       <div className="flex items-center gap-2">
         <h1 className="text-xl font-bold">
@@ -73,7 +73,7 @@ export function ProductInfo({ product }: ProductInfoProps) {
 
       <div className="mt-8 flex flex-col gap-3">
         <h3 className="text-base font-bold">Descrição</h3>
-        <p className="text-justify text-sm font-light opacity-60">
+        <p className="lg:max-h-sm overflow-auto text-justify text-sm font-light opacity-60 lg:max-h-[126px] lg:[&::-webkit-scrollbar-thumb]:bg-primary lg:[&::-webkit-scrollbar-track]:bg-secondary [&::-webkit-scrollbar]:w-1 sm:max-md:[&::-webkit-scrollbar]:hidden">
           {product.description}
         </p>
       </div>
